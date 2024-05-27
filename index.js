@@ -9,5 +9,8 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
+// Middlewares
+app.use(express.json());
+
 // Routes
-app.get("/", router);
+app.use("/", router);

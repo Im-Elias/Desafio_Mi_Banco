@@ -16,9 +16,16 @@ const registerTransfer = async (cuentaOrigen, cuentaDestino, monto) => {
 
     await pool.query(acredito);
 
+    const date = new Date();
     const registro = {
       text: "INSERT INTO transferencias (descripcion, fecha, monto, cuenta_origen, cuenta_destino) VALUES ($1, $2, $3, $4, $5) returning *",
-      values: ["Transferencia", new Date(), monto, cuentaOrigen, cuentaDestino],
+      values: [
+        "Transferencia",
+        date.toLocaleDateString("es-ES"),
+        monto,
+        cuentaOrigen,
+        cuentaDestino,
+      ],
     };
     const result = await pool.query(registro);
     await pool.query("COMMIT");
